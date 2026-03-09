@@ -8,16 +8,16 @@
   <meta name="keywords" content="股票,A股,实时行情,盯盘,浏览器插件,Chrome扩展,沪深股票,分时图,K线,自选股,盈亏计算,股票助手,股票易,StockEasy">
   <style>
     :root {
-      --bg: #0d1117;
-      --surface: #161b22;
-      --card: #1c2333;
-      --border: #30363d;
-      --text: #e6edf3;
-      --text-secondary: #8b949e;
-      --blue: #58a6ff;
-      --green: #3fb950;
-      --red: #f85149;
-      --yellow: #d29922;
+      --bg: #ffffff;
+      --surface: #f8f9fa;
+      --card: #ffffff;
+      --border: #e1e4e8;
+      --text: #24292f;
+      --text-secondary: #57606a;
+      --blue: #0969da;
+      --green: #1a7f37;
+      --red: #cf222e;
+      --yellow: #9a6700;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -32,7 +32,7 @@
     .hero {
       text-align: center;
       padding: 80px 20px 60px;
-      background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+      background: linear-gradient(180deg, #f6f8fa 0%, #ffffff 100%);
     }
     .hero-logo {
       width: 96px;
@@ -97,7 +97,7 @@
       gap: 20px;
     }
     .feat-card {
-      background: var(--card);
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 24px;
@@ -115,7 +115,7 @@
       max-width: 100%;
       border-radius: 12px;
       border: 1px solid var(--border);
-      box-shadow: 0 4px 24px rgba(0,0,0,.4);
+      box-shadow: 0 4px 16px rgba(0,0,0,.08);
       margin-bottom: 24px;
     }
     .screenshots .caption {
@@ -131,7 +131,7 @@
       counter-reset: step;
     }
     .step {
-      background: var(--card);
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 24px;
