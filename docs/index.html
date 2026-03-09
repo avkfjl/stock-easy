@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>股票易 - A股实时行情盯盘助手 | 免费浏览器股票插件</title>
+  <meta name="description" content="股票易是一款免费的浏览器A股实时行情盯盘插件，支持沪深股票分组管理、分时K线走势图、迷你悬浮窗口、盈亏计算。股民炒股必备工具。">
+  <meta name="keywords" content="股票,A股,实时行情,盯盘,浏览器插件,Chrome扩展,沪深股票,分时图,K线,自选股,盈亏计算,股票助手,股票易,StockEasy">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --card: #1c2333;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-secondary: #8b949e;
+      --blue: #58a6ff;
+      --green: #3fb950;
+      --red: #f85149;
+      --yellow: #d29922;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+      background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+    }
+    .hero-logo {
+      width: 96px;
+      height: 96px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #42a5f5, #1e88e5);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 32px rgba(66, 165, 245, .3);
+    }
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .hero h1 span { color: var(--blue); }
+    .hero-desc {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto 32px;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: opacity .2s, transform .15s;
+      text-decoration: none;
+    }
+    .btn:hover { opacity: .9; transform: translateY(-1px); text-decoration: none; }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+
+    .section { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .feat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      transition: border-color .2s, transform .15s;
+    }
+    .feat-card:hover { border-color: var(--blue); transform: translateY(-2px); }
+    .feat-card .icon { font-size: 28px; margin-bottom: 12px; }
+    .feat-card h3 { font-size: 16px; margin-bottom: 6px; }
+    .feat-card p { font-size: 13px; color: var(--text-secondary); }
+
+    .screenshots {
+      text-align: center;
+    }
+    .screenshots img {
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(0,0,0,.4);
+      margin-bottom: 24px;
+    }
+    .screenshots .caption {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+
+    .install-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      counter-reset: step;
+    }
+    .step {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      position: relative;
+    }
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .step h4 { font-size: 14px; margin-bottom: 6px; }
+    .step p { font-size: 12px; color: var(--text-secondary); }
+
+    .privacy-section {
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 32px;
+      text-align: center;
+    }
+    .privacy-section h3 { font-size: 18px; margin-bottom: 12px; }
+    .privacy-section p { font-size: 14px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+    .privacy-badges {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .privacy-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--green);
+    }
+
+    .cta {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .cta h2 { font-size: 24px; margin-bottom: 8px; }
+    .cta p { color: var(--text-secondary); margin-bottom: 24px; }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 50px 16px 40px; }
+      .hero h1 { font-size: 26px; }
+      .hero-desc { font-size: 15px; }
+      .section-title { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-logo">S</div>
+    <h1><span>股票易</span> StockEasy</h1>
+    <p class="hero-desc">轻量级浏览器A股实时行情盯盘插件<br>边工作边盯盘，股民炒股必备</p>
+    <div class="hero-btns">
+      <a class="btn btn-primary" href="https://chromewebstore.google.com" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4"/></svg>
+        Chrome 应用商店安装
+      </a>
+      <a class="btn btn-outline" href="https://microsoftedge.microsoft.com/addons" target="_blank">
+        Edge 外接程序安装
+      </a>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section">
+    <h2 class="section-title">核心功能</h2>
+    <div class="features">
+      <div class="feat-card">
+        <div class="icon">📊</div>
+        <h3>实时行情</h3>
+        <p>沪深A股实时报价，支持自定义刷新频率（3~60秒），盘前集合竞价也能实时刷新。</p>
+      </div>
+      <div class="feat-card">
+        <div class="icon">📈</div>
+        <h3>分时/K线图</h3>
+        <p>分时走势、五日线、日K/周K/月K/年K以及分钟级K线，多周期一键切换。</p>
+      </div>
+      <div class="feat-card">
+        <div class="icon">📁</div>
+        <h3>分组管理</h3>
+        <p>自选股多分组管理，支持拖拽排序、置顶、置底，告别凌乱的股票列表。</p>
+      </div>
+      <div class="feat-card">
+        <div class="icon">💰</div>
+        <h3>盈亏计算</h3>
+        <p>输入成本价和持仓数量，自动计算当日盈亏和浮动盈亏，一目了然。</p>
+      </div>
+      <div class="feat-card">
+        <div class="icon">🔔</div>
+        <h3>角标提醒</h3>
+        <p>浏览器工具栏图标实时显示重点关注股票的涨跌幅或当前价，无需打开窗口。</p>
+      </div>
+      <div class="feat-card">
+        <div class="icon">🖥️</div>
+        <h3>迷你窗口</h3>
+        <p>独立悬浮小窗口，紧凑显示核心数据，最小化占用屏幕空间。</p>
+      </div>
+      <div class="feat-card">
+        <div class="icon">📋</div>
+        <h3>大盘概览</h3>
+        <p>左侧栏展示上证/深证/创业板指数、涨跌家数、成交总额等全局数据。</p>
+      </div>
+      <div class="feat-card">
+        <div class="icon">🎨</div>
+        <h3>个性化设置</h3>
+        <p>深色/浅色主题切换，支持透明度调节、图标风格选择等多种自定义选项。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshots -->
+  <section class="section screenshots">
+    <h2 class="section-title">界面预览</h2>
+    <img src="screenshots/popup-main.png" alt="股票易主界面 - A股实时行情">
+    <p class="caption">主界面：自选股列表 + 大盘指数侧栏</p>
+    <img src="screenshots/popup-detail.png" alt="股票易个股详情 - 分时K线">
+    <p class="caption">个股详情：分时走势 / 多周期K线</p>
+    <img src="screenshots/mini-window.png" alt="股票易迷你窗口" style="max-width:280px;">
+    <p class="caption">迷你悬浮窗口：紧凑盯盘</p>
+  </section>
+
+  <!-- Install -->
+  <section class="section">
+    <h2 class="section-title">安装使用</h2>
+    <div class="install-steps">
+      <div class="step">
+        <h4>商店搜索</h4>
+        <p>在 Chrome 应用商店或 Edge 外接程序中搜索「股票易」</p>
+      </div>
+      <div class="step">
+        <h4>一键安装</h4>
+        <p>点击「添加至 Chrome」按钮，几秒完成安装</p>
+      </div>
+      <div class="step">
+        <h4>添加自选</h4>
+        <p>点击工具栏图标打开插件，搜索并添加你关注的股票</p>
+      </div>
+      <div class="step">
+        <h4>开始盯盘</h4>
+        <p>实时行情自动刷新，随时点击查看分时/K线详情</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy -->
+  <section class="section">
+    <div class="privacy-section">
+      <h3>隐私安全</h3>
+      <p>我们重视您的隐私，本插件不收集任何个人信息，所有数据仅存储在您的浏览器本地。</p>
+      <div class="privacy-badges">
+        <span class="privacy-badge">✓ 不收集个人信息</span>
+        <span class="privacy-badge">✓ 不追踪浏览记录</span>
+        <span class="privacy-badge">✓ 数据本地存储</span>
+        <span class="privacy-badge">✓ 开源透明</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <h2>开始使用股票易</h2>
+    <p>免费安装，轻松盯盘，让投资更高效</p>
+    <a class="btn btn-primary" href="https://chromewebstore.google.com" target="_blank">立即安装</a>
+  </section>
+
+  <footer>
+    <p>© 2026 股票易 StockEasy. 行情数据来自东方财富，仅供参考，不构成投资建议。</p>
+    <p style="margin-top:6px;">
+      <a href="privacy-policy.html">隐私政策</a>
+      &nbsp;·&nbsp;
+      <span>联系微信：rujg8888</span>
+    </p>
+  </footer>
+
+</body>
+</html>
