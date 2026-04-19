@@ -20,6 +20,7 @@
       --yellow: #9a6700;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
       background: var(--bg);
@@ -28,6 +29,57 @@
     }
     a { color: var(--blue); text-decoration: none; }
     a:hover { text-decoration: underline; }
+
+    .page-shell {
+      display: grid;
+      grid-template-columns: minmax(180px, 220px) minmax(0, 1fr);
+      gap: 0 28px;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px;
+      align-items: start;
+    }
+    .page-content { min-width: 0; }
+    .doc-nav {
+      position: sticky;
+      top: 0;
+      align-self: start;
+      max-height: 100vh;
+      overflow-y: auto;
+      padding: 20px 0 24px;
+      border-right: 1px solid var(--border);
+    }
+    .doc-nav-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      padding: 0 4px 0 12px;
+    }
+    .doc-nav ul { list-style: none; }
+    .doc-nav li { margin: 0; }
+    .doc-nav a {
+      display: block;
+      padding: 10px 12px;
+      margin: 2px 0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+      border-left: 3px solid transparent;
+    }
+    .doc-nav a:hover {
+      background: var(--surface);
+      color: var(--blue);
+      text-decoration: none;
+    }
+    #plugin-intro,
+    #mian5-intro {
+      scroll-margin-top: 16px;
+    }
 
     .hero {
       text-align: center;
@@ -155,6 +207,116 @@
     .step h4 { font-size: 14px; margin-bottom: 6px; }
     .step p { font-size: 12px; color: var(--text-secondary); }
 
+    .mian5-section {
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 28px 32px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    .mian5-subtitle {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 16px;
+    }
+    .mian5-disclaimer {
+      border: 1px solid var(--border);
+      background: var(--card);
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      border-radius: 8px;
+      margin-bottom: 18px;
+      line-height: 1.65;
+    }
+    .mian5-table-wrap {
+      overflow-x: auto;
+      margin-bottom: 24px;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .mian5-table {
+      width: 100%;
+      min-width: 560px;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--card);
+    }
+    .mian5-table th,
+    .mian5-table td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .mian5-table th {
+      background: #f0f3f6;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .mian5-table td:first-child { font-weight: 600; white-space: nowrap; }
+    .mian5-explain {
+      margin-top: 8px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+    }
+    .mian5-section h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .mian5-formula {
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 18px;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .mian5-compare {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    @media (min-width: 560px) {
+      .mian5-compare {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+    }
+    .mian5-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .mian5-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .mian5-tag--yes { background: var(--green); }
+    .mian5-tag--no { background: var(--red); }
+    .mian5-item p { font-size: 14px; color: var(--text); margin: 0; line-height: 1.55; }
+    .mian5-footnote {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.6;
+      margin: 0;
+    }
+
     .privacy-section {
       background: var(--surface);
       border-radius: 12px;
@@ -194,6 +356,42 @@
       border-top: 1px solid var(--border);
     }
 
+    @media (max-width: 900px) {
+      .page-shell {
+        grid-template-columns: 1fr;
+        padding: 0 16px;
+        gap: 0;
+      }
+      .doc-nav {
+        position: static;
+        max-height: none;
+        overflow: visible;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 12px 0 14px;
+      }
+      .doc-nav-title {
+        padding-left: 0;
+        margin-bottom: 8px;
+      }
+      .doc-nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .doc-nav a {
+        display: inline-block;
+        margin: 0;
+        padding: 8px 14px;
+        border: 1px solid var(--border);
+        border-left: 1px solid var(--border);
+        background: var(--surface);
+      }
+      .doc-nav a:hover {
+        border-color: var(--blue);
+      }
+    }
+
     @media (max-width: 600px) {
       .hero { padding: 50px 16px 40px; }
       .hero h1 { font-size: 26px; }
@@ -204,6 +402,19 @@
 </head>
 <body>
 
+  <div class="page-shell">
+    <aside class="doc-nav" aria-label="页面目录">
+      <nav>
+        <p class="doc-nav-title">目录</p>
+        <ul>
+          <li><a href="#plugin-intro">插件介绍</a></li>
+          <li><a href="#mian5-intro">免5介绍</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <div class="page-content">
+
+  <div id="plugin-intro">
   <!-- Hero -->
   <section class="hero">
     <div class="hero-logo">S</div>
@@ -278,7 +489,7 @@
     <img src="screenshots/popup-main.png" alt="股票易主界面 - A股实时行情">
     <p class="caption">主界面：自选股列表 + 大盘指数侧栏</p>
     <img src="screenshots/popup-detail.png" alt="股票易个股详情 - 分时K线">
-    <p class="caption">个股详情：分时走势 / 多周期K线</p>
+    <p class="caption">个股详情：分时走势 / 多周期K线 / 个股提醒设置（图片小铃铛处）</p>
     <img src="screenshots/mini-window.png" alt="股票易迷你窗口" style="max-width:280px;">
     <p class="caption">迷你悬浮窗口：紧凑盯盘</p>
   </section>
@@ -326,15 +537,100 @@
     <p>免费安装，轻松盯盘，让投资更高效</p>
     <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/jjlfodcnodajninmaoioejmbinohfcml" target="_blank">立即安装</a>
   </section>
+  </div>
+
+  <!-- 免5说明 -->
+  <section id="mian5-intro" class="section">
+    <h2 class="section-title">免5说明</h2>
+    <div class="mian5-section">
+      <p class="mian5-subtitle">都支持同花顺 / 通达信</p>
+      <p class="mian5-disclaimer">开户佣金等政策可能随时变动，下表仅供参考。如需了解最新政策或协助开户，可加微信： <strong>avkfjl001</strong></p>
+      <div class="mian5-table-wrap">
+        <table class="mian5-table">
+          <thead>
+            <tr>
+              <th>券商</th>
+              <th>股票</th>
+              <th>ETF</th>
+              <th>调佣要求</th>
+              <th>优势</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>YH证券</td>
+              <td>万0.86（5元起步）</td>
+              <td>万0.5免5</td>
+              <td>账户1.5万</td>
+              <td>网格、ETF党套利、纳指定投</td>
+            </tr>
+            <tr>
+              <td>GF证券</td>
+              <td>万0.691免5（5元起）</td>
+              <td>万0.5免5</td>
+              <td>账户2万</td>
+              <td>一线券商费率很低</td>
+            </tr>
+            <tr>
+              <td>GT证券</td>
+              <td>万0.9免5</td>
+              <td>万0.5免5</td>
+              <td>账户12万</td>
+              <td>前3券商上市知名</td>
+            </tr>
+            <tr>
+              <td>GT证券</td>
+              <td>万0.8免5</td>
+              <td>万0.5免5</td>
+              <td>账户50万</td>
+              <td>50万大资金最低费率</td>
+            </tr>
+            <tr>
+              <td>DB证券</td>
+              <td>万0.74免5</td>
+              <td>万0.5免5</td>
+              <td>账户32万</td>
+              <td>32万送QMT最低费率</td>
+            </tr>
+            <tr>
+              <td>PA证券</td>
+              <td>万0.8（5元起步）</td>
+              <td>万0.5</td>
+              <td>账户50万</td>
+              <td>两融3.58%超低两融</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mian5-explain" id="mian5-example">
+        <h3>免5 vs 不免5 区别举例</h3>
+        <p class="mian5-formula">买1万元股票，手续费 = 1万 × 0.085% = 0.85 元</p>
+        <div class="mian5-compare">
+          <div class="mian5-item">
+            <span class="mian5-tag mian5-tag--yes">免5</span>
+            <p>实际收 0.85 元</p>
+          </div>
+          <div class="mian5-item">
+            <span class="mian5-tag mian5-tag--no">不免5</span>
+            <p>不足5元按5元收，实际收 5.00 元</p>
+          </div>
+        </div>
+        <p class="mian5-footnote">小资金、高频交易，免5一年可省数百数千元。</p>
+      </div>
+    </div>
+  </section>
 
   <footer>
     <p>© 2026 股票易 StockEasy. 行情数据来自东方财富，仅供参考，不构成投资建议。</p>
     <p style="margin-top:6px;">
       <a href="privacy-policy.html">隐私政策</a>
       &nbsp;·&nbsp;
-      <span>联系微信：rujg8888</span>
+      <span>联系微信：avkfjl001</span>
     </p>
   </footer>
+
+    </div>
+  </div>
 
 </body>
 </html>
